@@ -7,7 +7,7 @@ include dirname(__FILE__) . '/template_partes/newsletter.php';
 include dirname(__FILE__) . '/template_partes/regioes.php';
 include dirname(__FILE__) . '/template_partes/compartilhar.php';
 include dirname(__FILE__) . '/template_partes/relacionados.php';
-include dirname(__FILE__) . '/template_partes/doacao.php';
+// include dirname(__FILE__) . '/template_partes/doacao.php';
 
 // Registra as sidebars
 function tutsup_sidebars()	{
@@ -37,7 +37,11 @@ add_action( 'widgets_init', 'tutsup_sidebars' );
 function register_my_menu() {
 
 	register_nav_menus( array(
-		'menu-tags'  => 'Menu tags'
+		'menu-tags'  => 'Menu tags',
+		'menu-primario'  => 'Menu primário',
+		'footer'  => 'Footer',
+		'language'  => 'language',
+
 		) );
 		// 'menu-primario' => __( 'Menu primário' ),
 		// 'menu-tags'  => __( 'Menu tags' ),
@@ -76,3 +80,15 @@ function check_for_category_single_template( $t )
   } 
   return $t;
 }
+
+// legenda
+// add_filter( 'image_send_to_editor', 'image_add_caption', 20, 8 ); 
+
+//Adicionar uma nova pagina no tema
+// referencia: https://chap.website/creating-new-files-in-the-wordpress-theme-editor/
+/*
+add_action('after_setup_theme', function() {
+	$file = get_stylesheet_directory() . '/page-home-ar.php';
+	touch($file);
+});
+*/

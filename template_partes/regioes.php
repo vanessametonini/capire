@@ -1,5 +1,24 @@
 <?php function componente_regioes() { 
-  $title_regiao = get_field('titulo_regioes');
+  
+  $lang = get_bloginfo("language");
+
+  if ( $lang === 'en-US' ) {
+      $page = get_page_by_path( 'home-en' );
+      $title_regiao = get_field('titulo_regioes_en');
+
+  } elseif ( $lang === 'es' ) {
+      $page = get_page_by_path( 'home-es' );
+      $title_regiao = get_field('titulo_regioes_es');
+
+  } elseif ( $lang === 'fr-FR' ) {
+      $page = get_page_by_path( 'home-fr' );
+      $title_regiao = get_field('titulo_regioes_fr');
+
+  } elseif ( $lang === 'pt-BR' ) {
+      $page = get_page_by_path( 'home' );
+      $title_regiao = get_field('titulo_regioes');
+  }
+
 ?>
 
 <section class="container-fluid bg-grey home-regions">
@@ -9,14 +28,12 @@
         <h2><?php echo $title_regiao ?></h2>
       </div>
 
-      <div class="carousel slider-regioes" data-flickity='{ "freeScroll": true, "contain": true , "groupCells": true  }'>
-
-
+      <div class="carousel slider-regioes" data-flickity='{ "freeScroll": true, "contain": true, "groupCells": true }'>
         <?php 
         $posts_regs = get_posts(array(
           'post_type' => 'post',
           'post_status' => 'publish',
-          'numberposts' => -1,
+          'numberposts' => 30,
           'orderby'=>'id', 
           'order'=>'DESC',
           'hide_empty' => true,
@@ -24,7 +41,7 @@
               array(
                   'taxonomy' => 'regioes',
                   'field' => 'slug',
-                  'terms' => ['africa', 'americas', 'asia-oceania', 'europa', 'mundo-arabe'],
+                  'terms' => ['africa', 'americas', 'asia-oceania', 'europa', 'mundo-arabe', 'internacional'],
               )
           )
         ) );
@@ -33,7 +50,8 @@
           $regs = get_the_terms( $post->ID, 'regioes' )[0];
           $categoria = get_the_terms( $post->ID, 'category' )[0];
           $link = get_permalink( $post->ID );
-          $thumb = get_the_post_thumbnail_url( $post->ID, 'full');
+          $thumb = get_the_post_thumbnail_url( $post->ID, 'medium');
+          $date = get_the_date('d/m/Y', $post->ID);
         ?>
           <div class="carousel-cell slide-regiao">
             <div class="col-reg">
@@ -44,10 +62,10 @@
                         </div>
                         <div class="name-categoria small">
                           <span><?php echo $categoria->name ?></span>
-                          <span class="float-right"><?php echo get_the_date('d/m/Y') ?></span>
+                          <span class="float-right"><?php echo $date ?></span>
                         </div>
                         
-                        <h5><?php echo get_the_title( $post->ID ); ?></h5>
+                        <h4><?php echo get_the_title( $post->ID ); ?></h4>
                     </div>
                 </a>
             </div>

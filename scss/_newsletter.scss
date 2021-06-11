@@ -1,11 +1,17 @@
 .wrap-newsletter {
-  margin-top: 64px;
-  margin-bottom: 82px;
+  margin-top: 96px;
+  margin-bottom: 116px;
+
+  @media screen and (max-width: 1199px) {
+    margin-top: 0px;
+    margin-bottom: 80px;
+  }
 
   input {
     width: 300px;
     border-radius: 0px;
-    border: 1px solid var(--dark);
+    border: 0px solid var(--dark);
+    border-bottom: 1px solid var(--purple);
     margin-bottom: 27px;
   }
 
@@ -55,6 +61,41 @@
         display: none;
         background-image: url(../images/element-right-sm.png);
       }
+    }
+  }
+}
+
+.element-right {
+  input {
+    &.tnp-name,&.tnp-email {
+      background: none !important;
+      border-bottom: 1px solid var(--purple) !important;
+      width: 85% !important;
+
+      @media screen and (max-width: 1199px) {
+        width: 100% !important;
+      }
+    }
+  }
+
+  form {
+    margin-top: -30px;
+  }
+
+  .tnp-submit {
+    border: 0px;
+    border-radius: 3px;
+    background-color: var(--purple) !important;
+    color: white;
+    padding: 10px 15px !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    float: right;
+    margin-right: 52px !important;
+
+    @media screen and (max-width: 1199px) {
+      width: auto !important;
+      margin-right: 0px !important;
     }
   }
 }

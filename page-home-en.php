@@ -3,11 +3,10 @@
 $pageID = get_the_ID();
 ?>
 
-
 <section class="container p-top">
   <div class="row">
     <div class="col-12 text-center">
-      <img class="img-highlight" src="<?php  echo get_field('imagem_do_topo', $pageID) ?>" alt="Image highlight">
+      <img class="img-highlight" src="<?php  echo get_field('imagem_do_topo_en', $pageID) ?>" alt="Image highlight">
     </div>
   </div>
 </section>
@@ -17,19 +16,24 @@ $pageID = get_the_ID();
     <div class="col-lg-10 offset-lg-1 col-12">
 
       <?php
-        $rows = get_field('carousel_principal', $pageID);
-        if( $rows ) {
+        // $rows = get_field('carousel_principal_en', $pageID);
+        $posts_ultimos = new WP_Query( array(
+          'post_type'      => 'post',
+          'post_status'    => 'publish',
+          'order' => 'DESC',
+          'posts_per_page' => 4,
+        ) );
+        
+        if( $posts_ultimos ) {
       ?>
         <div class="carousel hero-slide" data-flickity='{ "autoPlay": true }'>
-        <!-- data-flickity='{ "autoPlay": true }' -->
         <?php
-          foreach( $rows as $row ) {
-            $post_principal = $row['post_carousel_principal'];
-            $title = get_the_title( $post_principal->ID );
-            $link = get_permalink( $post_principal->ID );
-            $thumb = get_the_post_thumbnail_url( $post_principal->ID, 'full');
-            $categoria = get_the_category( $post_principal->ID )[0]->name;
-            $linha_fina = get_field('linha_fina', $post_principal->ID);
+          foreach( $posts_ultimos->posts as $post ) {
+            $title = get_the_title( $post->ID );
+            $link = get_permalink( $post->ID );
+            $thumb = get_the_post_thumbnail_url( $post->ID, 'full');
+            $categoria = get_the_category( $post->ID )[0]->name;
+            $linha_fina = get_field('linha_fina', $post->ID);
             $category_id = get_cat_ID( $categoria );
             $category_link = get_category_link( $category_id );
         ?>
@@ -76,6 +80,71 @@ $pageID = get_the_ID();
 
 <?php componente_regioes() ?>
 
+<?php  
+$posts_galery = new WP_Query( array(
+  'post_type'      => 'post',
+  'post_status'    => 'publish',
+  'posts_per_page' => 1,
+  'order' => 'DESC',
+  'tax_query'      => array(
+    array(
+      'taxonomy' => 'category',
+      'field'    => 'slug',
+      'terms'    => 'galerie',
+    ),
+  ),
+) );
+
+if ($posts_galery) {
+?>
+  <section class="container-fluid galeria">
+    <div class="row">
+      <div class="container">
+        <div class="row">
+          <?php 
+            foreach ( $posts_galery->posts as $post ) {
+              $thumbgalery = get_the_post_thumbnail_url( $post->ID, 'full');
+              $categoria = get_the_category( $post->ID )[0]->name;
+              $linha_fina = get_field('linha_fina', $post->ID);
+              $category_id = get_cat_ID( $categoria );
+              $category_link = get_category_link( $category_id );
+              $galeria = get_field('galeria_home_en', $post->ID);
+              $link = get_permalink( $post->ID );
+          ?>
+              <div class="offset-lg-1 col-lg-5 col-12">
+                <p class="name-categoria">
+                  <a href="<?php echo $category_link ?>">
+                    <?php echo $categoria ?>
+                  </a>
+                  <span class="float-right"><?php echo get_the_date('d/m/Y') ?></span>
+                </p>
+                <a href="<?php echo $link ?>" alt="<?php echo get_the_title( $post->ID ) ?>" title="<?php echo get_the_title( $post->ID )?>">
+                  <h2><?php echo get_the_title( $post->ID ); ?></h2>
+                  <p class="subtitle"><?php echo $linha_fina ?></p>
+                </a>
+              </div>
+              <div class="col-lg-5 col-12">
+                <?php if( $galeria ) { ?>
+                  <div class="carousel galeria-slide" data-flickity='{ "autoPlay": true }'>
+                    <?php  
+                      foreach( $galeria as $image ) { 
+                        $img_galeria = $image['img_galeria_en'];
+                    ?>
+                      <div class="carousel-cell">
+                        <img class="img-galeria" src="<?php echo $img_galeria ?>" alt="<?php echo get_the_title( $post->ID ) ?>">
+                      </div>
+                    <?php } ?>
+                  </div>
+                <?php } else { ?>
+                  <img src="<?php echo $thumbgalery ?>" alt="<?php echo get_the_title( $post->ID ) ?>">
+                <?php } ?>
+              </div>
+            <?php } ?>
+        </div>
+      </div>
+    </div>
+  </section>
+<?php } ?>
 
 <section class="container">
   <div class="row">
@@ -83,7 +152,7 @@ $pageID = get_the_ID();
       <div class="row">
 
         <?php
-          $formatos_1 = get_field('formatos_1', $pageID);
+          $formatos_1 = get_field('formatos_1_en', $pageID);
           if( $formatos_1 ) {
       
             foreach( $formatos_1 as $formato_1 ) {
@@ -125,7 +194,7 @@ $pageID = get_the_ID();
 
         <div class="col-lg-4 col-8 offset-2 offset-lg-0 read-more">
           
-          <h6><?php echo get_field('titulo_leia_mais') ?></h6>
+          <h6><?php echo get_field('titulo_leia_mais_en') ?></h6>
           <div class="line-gradient more"></div>
         
           <?php 
@@ -133,18 +202,16 @@ $pageID = get_the_ID();
             'post_type'      => 'post',
             'post_status'    => 'publish',
             'posts_per_page' => 4,
-            'order' => 'DESC',
           ) );
-      
-          $mylimit = 20 * 86400; //days * seconds per day
+          
+          $mylimit = 0 * 86400; //days * seconds per day
 
           while ($posts_last->have_posts()) : $posts_last->the_post();
+            $title = get_the_title( $post->ID );
+            $link = get_permalink( $post->ID );
+            $post_age = date('U') - get_post_time('U');
 
-              $title = get_the_title( $post->ID );
-              $link = get_permalink( $post->ID );
-              $post_age = date('U') - get_post_time('U');
-
-              if ($post_age > $mylimit) { 
+            if ($post_age > $mylimit) {
           ?>
 
             <a href="<?php echo $link ?>" alt="<?php echo $title ?>" title="<?php echo $title ?>">
@@ -152,14 +219,15 @@ $pageID = get_the_ID();
             </a>
             <div class="line-gradient more-home"></div>
 
-          <?php 
-            }
+          <?php
+            } 
             endwhile;
           ?>
+
         </div>
 
         <?php
-          $formatos_2 = get_field('formatos_2', $pageID);
+          $formatos_2 = get_field('formatos_2_en', $pageID);
           if( $formatos_2 ) {
       
             foreach( $formatos_2 as $formato_2 ) {
@@ -213,7 +281,7 @@ $pageID = get_the_ID();
     </div>
 
     <div class="offset-lg-2 col-lg-8">
-      <h2 class="title-watch"><?php echo get_field('titulo_multimidias'); ?></h2>
+      <h2 class="title-watch"><?php echo get_field('titulo_multimidias_en'); ?></h2>
 
       <div class="carousel slider-videos" data-flickity='{ "freeScroll": true }'>
 
@@ -221,12 +289,12 @@ $pageID = get_the_ID();
         $posts_midias = new WP_Query( array(
           'post_type'      => 'post',
           'post_status'    => 'publish',
-          'posts_per_page' => 4,
+          'posts_per_page' => 5,
           'tax_query'      => array(
             array(
               'taxonomy' => 'category',
               'field'    => 'slug',
-              'terms'    => 'multimidia',
+              'terms'    => 'video',
             ),
           ),
         ) );
@@ -238,12 +306,12 @@ $pageID = get_the_ID();
 
           <div class="carousel-cell slide-video">
             <img src="<?php echo $thumbvideo ?>" alt="<?php echo get_the_title( $post->ID ) ?>">
-            <a href="<?php echo $link ?>" alt="<?php echo get_the_title( $post->ID ) ?>" title="<?php echo get_the_title( $post->ID )?>">
+            <a href="<?php echo $link ?>" alt="<?php echo get_the_title( $post->ID ) ?>" title="<?php echo get_the_title( $post->ID ) ?>">
               <h3><?php echo get_the_title( $post->ID ); ?></h3>
             </a>
             <button type="button" class="player-video" data-toggle="modal" data-target="#<?php echo $post->ID ?>Modal"></button>
           </div>
-
+        
         <?php } ?>
 
       </div>
@@ -274,6 +342,7 @@ $pageID = get_the_ID();
       </div>
     <?php } ?>
 
+
     <div class="col-10 offset-1 col-lg-10 offset-lg-1">
       <div class="line-gradient"></div>
     </div>
@@ -281,8 +350,9 @@ $pageID = get_the_ID();
   </div>
 </section>
 
+
 <?php componente_newsletter() ?>
-<!-- [newsletter_form] -->
+
 <?php /* componente_doacao() */ ?>
 
 <?php get_footer(); ?>

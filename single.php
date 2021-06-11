@@ -10,6 +10,27 @@
     $categoria = get_the_category( $postID )[0]->name;
     $tags = get_the_tags();
     $link = get_permalink( $postID );
+    $caption = the_post_thumbnail_caption( $postID );
+    if ( $lang === 'en' ) {
+        $page = get_page_by_path( 'home-en' );
+        $text_share = get_field('texto_artigo_en', $page->ID);
+     }
+     elseif ( $lang === 'es' ) {
+        $page = get_page_by_path( 'home-es' );
+        $text_share = get_field('texto_artigo_es', $page->ID);
+    }
+    elseif ( $lang === 'fr' ) {
+        $page = get_page_by_path( 'home-fr' );
+        $text_share = get_field('texto_artigo_fr', $page->ID);
+    }
+    elseif ( $lang === 'pt' ) {
+        $page = get_page_by_path( 'home' );
+        $text_share = get_field('texto_artigo', $page->ID);
+    }
+    elseif ( $lang === 'ar' ) {
+        $page = get_page_by_path( 'home-ar' );
+        $text_share = get_field('texto_artigo', $page->ID);
+    }
 ?>
 
 <div class="container p-top">
@@ -21,27 +42,28 @@
                 <p class="name-categoria"><?php echo $categoria ?>
                     <span class="date float-right"><?php echo get_the_date('d/m/Y') ?></span>
                 </p>
-                
-                <div class="tags-article">
-                    <?php if ( $tags ) {
-                        foreach( $tags as $tag ) { ?>
-
-                        <a href="<?php echo get_tag_link($tag); ?>"><p class="small"><?php echo $tag->name ?></p></a>
-
-                    <?php }
-                    } ?>
-                </div>
-                
+                <?php if ( $tags ) {
+                    foreach( $tags as $tag ) { ?>
+                        <div class="tags-article">
+                            <a href="<?php echo get_tag_link($tag); ?>">
+                                <p class="small"><?php echo $tag->name ?></p>
+                            </a>
+                        </div>
+                <?php }
+                } ?>
             </div>
 
             <div class="single-thumb">
-                <?php echo $thumb ?>
+                <div class="img-leg">
+                    <?php echo $thumb ?>
+                    <p class="small"><?php the_post_thumbnail_caption(  ); ?></p>
+                </div>
             </div>
 
         </div>
     </div>
 
-    <article>
+    <article class="corpo-artigo">
         <div class="row">
 
             <div class="col-12 col-lg-6 offset-lg-3">
@@ -68,11 +90,8 @@
                 <div class="article-content">
                     <?php the_content(); ?>
                 </div>
-                
-                <div class="line-gradient mb-3 mt-4"></div>
 
-                <div class="infos-article">
-
+                <div class="infos-article text-right">
                     <?php if($traduzido) { ?>
                         <div class="author">
                             <?php echo $traduzido ?>
@@ -82,19 +101,20 @@
                             <?php echo $revisado ?>
                         </div>
                     <?php } ?>
-
-                    <div class="social-right">
-                        <?php componente_compartilhar() ?>
-                    </div>
-
                 </div>
-                
+
+                <div class="line-gradient mb-3 mt-2"></div>
+
+                <div class="social-center">
+                    <p><?php echo $text_share ?></p>
+                    <?php componente_compartilhar() ?>
+                </div>
             </div>
 
         </div>
 
     </article>
- 
+
 </div>
 
 
@@ -116,6 +136,6 @@
 
 <?php componente_newsletter() ?>
 
-<?php componente_doacao() ?>
+<?php /* componente_doacao() */ ?>
 
 <?php get_footer(); ?>
