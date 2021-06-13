@@ -90,7 +90,6 @@
                 <div class="article-content">
                     <?php the_content(); ?>
                 </div>
-
                 <div class="infos-article text-right">
                     <?php if($traduzido) { ?>
                         <div class="author">

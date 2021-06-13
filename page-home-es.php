@@ -350,14 +350,12 @@ if ($posts_galery) {
       </div>
     <?php } ?>
 
-
     <div class="col-10 offset-1 col-lg-10 offset-lg-1">
       <div class="line-gradient"></div>
     </div>
 
   </div>
 </section>
-
 
 <?php componente_newsletter() ?>
 

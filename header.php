@@ -87,6 +87,42 @@ elseif ( $lang === 'ar' ) {
 
 <body <?php body_class(); ?>>
 
+<?php  
+
+$lang = get_bloginfo("language");
+
+if ( $lang === 'en-US' ) {
+  $link = "https://capiremov.org/en/about-us/";
+  $page = get_page_by_path( 'home-en' );
+  $quem = get_field('btn_quem_somos_en', $page->ID);
+  $apoie = get_field('btn_apoie_en', $page->ID);
+  $telegram = "http://t.me/capiremov_en";
+
+} elseif ( $lang === 'es' ) {
+  $link = "https://capiremov.org/es/quienes-somos/";
+  $page = get_page_by_path( 'home-es' );
+  $quem = get_field('btn_quem_somos_es', $page->ID);
+  $apoie = get_field('btn_apoie_es', $page->ID);
+  $telegram = "http://t.me/capiremov_es";
+
+} elseif ( $lang === 'fr-FR' ) {
+  $link = "https://capiremov.org/fr/a-propos-de-nous/";
+  $page = get_page_by_path( 'home-fr' );
+  $quem = get_field('btn_quem_somos_fr', $page->ID);
+  $apoie = get_field('btn_apoie_fr', $page->ID);
+  $telegram = "http://t.me/capiremov_fr";
+
+} elseif ( $lang === 'pt-BR' ) {
+  $link = "https://capiremov.org/quem-somos/";
+  $page = get_page_by_path( 'home' );
+  $quem = get_field('btn_quem_somos', $page->ID);
+  $apoie = get_field('btn_apoie', $page->ID);
+  $telegram = "http://t.me/capiremov_pt";
+
+}
+
+?>
+
 <header>
   <div class="container-fluid d-none d-lg-block">
     <div class="row b-bottom">
