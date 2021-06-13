@@ -151,23 +151,28 @@ if ($posts_galery) {
     <div class="offset-lg-1 col-lg-10">
       <div class="row">
 
-        <?php
-          $formatos_1 = get_field('formatos_1_es', $pageID);
-          if( $formatos_1 ) {
-      
-            foreach( $formatos_1 as $formato_1 ) {
-              $post_formato_1 = $formato_1['post_formato_1'];
-              $title = get_the_title( $post_formato_1->ID );
-              $link = get_permalink( $post_formato_1->ID );
-              $thumb = get_the_post_thumbnail_url( $post_formato_1->ID, 'full');
-              $categoria = get_the_category( $post_formato_1->ID )[0]->name;
-              $linha_fina = get_field('linha_fina', $post_formato_1->ID);
-              $category_id = get_cat_ID( $categoria );
-              $category_link = get_category_link( $category_id );
-          ?>
+      <?php
+        $formatos_1 = new WP_Query( array(
+          'post_type'      => 'post',
+          'post_status'    => 'publish',
+          'order' => 'DESC',
+          'posts_per_page' => 2,
+          'offset' => 4
+        ) );
+
+        if( $formatos_1 ) {
+
+          foreach( $formatos_1->posts as $post ) {
+            $title = get_the_title( $post->ID );
+            $link = get_permalink( $post->ID );
+            $thumb = get_the_post_thumbnail_url( $post->ID, 'full');
+            $categoria = get_the_category( $post->ID )[0]->name;
+            $linha_fina = get_field('linha_fina', $post->ID);
+            $category_id = get_cat_ID( $categoria );
+            $category_link = get_category_link( $category_id );
+        ?>
 
           <div class="col-lg-4">
-            
               <div class="box-cats-home">
                 <a href="<?php echo $link ?>" alt="<?php echo $title ?>" title="<?php echo $title ?>">
                   <div class="bg-img img-cats-home" style="background-image: url(<?php echo $thumb ?>)"></div>
@@ -183,7 +188,6 @@ if ($posts_galery) {
                   <p class="subtitle"><?php echo $linha_fina ?></p>
                 </a>
               </div>
-            
           </div>
 
           <?php
@@ -193,53 +197,57 @@ if ($posts_galery) {
         ?>
 
         <div class="col-lg-4 col-8 offset-2 offset-lg-0 read-more">
-          
           <h6><?php echo get_field('titulo_leia_mais_es') ?></h6>
           <div class="line-gradient more"></div>
-        
-          <?php 
-          $posts_last = new WP_Query( array(
-            'post_type'      => 'post',
-            'post_status'    => 'publish',
-            'posts_per_page' => 4,
-          ) );
-          
-          $mylimit = 0 * 86400; //days * seconds per day
+          <?php
+            $posts_last = new WP_Query( array(
+              'post_type'      => 'post',
+              'post_status'    => 'publish',
+              'order' => 'DESC',
+              'posts_per_page' => 4,
+              'offset' => 9
+            ) );
 
-          while ($posts_last->have_posts()) : $posts_last->the_post();
-            $title = get_the_title( $post->ID );
-            $link = get_permalink( $post->ID );
-            $post_age = date('U') - get_post_time('U');
+            if( $posts_last ) {
 
-            if ($post_age > $mylimit) {
-          ?>
+              foreach( $posts_last->posts as $post ) {
+                $title = get_the_title( $post->ID );
+                $link = get_permalink( $post->ID );
+            ?>
 
             <a href="<?php echo $link ?>" alt="<?php echo $title ?>" title="<?php echo $title ?>">
               <h4><?php echo $title ?></h4>
             </a>
             <div class="line-gradient more-home"></div>
 
-          <?php
-            } 
-            endwhile;
-          ?>
+            <?php
+              wp_reset_postdata();
+                }
+              }
+            ?>
 
         </div>
 
         <?php
-          $formatos_2 = get_field('formatos_2_es', $pageID);
-          if( $formatos_2 ) {
-      
-            foreach( $formatos_2 as $formato_2 ) {
-              $post_formato_2 = $formato_2['post_formato_2'];
-              $title = get_the_title( $post_formato_2->ID );
-              $link = get_permalink( $post_formato_2->ID );
-              $thumb = get_the_post_thumbnail_url( $post_formato_2->ID, 'full');
-              $categoria = get_the_category( $post_formato_2->ID )[0]->name;
-              $linha_fina = get_field('linha_fina', $post_formato_2->ID);
-              $category_id = get_cat_ID( $categoria );
-              $category_link = get_category_link( $category_id );
-          ?>
+        $formatos_2 = new WP_Query( array(
+          'post_type'      => 'post',
+          'post_status'    => 'publish',
+          'order' => 'DESC',
+          'posts_per_page' => 3,
+          'offset' => 6
+        ) );
+
+        if( $formatos_2 ) {
+
+          foreach( $formatos_2->posts as $post ) {
+            $title = get_the_title( $post->ID );
+            $link = get_permalink( $post->ID );
+            $thumb = get_the_post_thumbnail_url( $post->ID, 'full');
+            $categoria = get_the_category( $post->ID )[0]->name;
+            $linha_fina = get_field('linha_fina', $post->ID);
+            $category_id = get_cat_ID( $categoria );
+            $category_link = get_category_link( $category_id );
+        ?>
 
           <div class="col-lg-4">
             <div class="box-cats-home">
