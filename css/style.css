@@ -733,6 +733,10 @@ footer .menu-footer li a {
   margin-top: 12px;
 }
 
+.relacionados.ar .row.cardlist {
+  flex-direction: row-reverse;
+}
+
 .card-relacionados {
   border-left: 11px solid var(--red);
   padding-left: 20px;
@@ -773,6 +777,7 @@ footer .menu-footer li a {
 }
 .wrap-newsletter .element-left {
   margin-top: 77px;
+  position:relative;
 }
 .wrap-newsletter .element-left::after {
   content: "";
@@ -783,6 +788,16 @@ footer .menu-footer li a {
   margin-top: -113px;
   margin-left: -81px;
 }
+
+.wrap-newsletter.ar .element-left::after {
+  content: "";
+  display: block;
+  background-image: url(../images/element-right.png);
+  width: 175px;
+  height: 175px;
+  position: absolute;
+}
+
 @media screen and (max-width: 1199px) {
   .wrap-newsletter .element-left::after {
     display: none;
@@ -800,6 +815,22 @@ footer .menu-footer li a {
   margin-bottom: -92px;
   margin-right: -33px;
 }
+
+.wrap-newsletter .element-right {
+  position: relative;
+}
+
+.wrap-newsletter.ar .element-right::before {
+  content: "";
+  display: block;
+  background-repeat: no-repeat;
+  background-image: url(../images/element-left.png);
+  width: 175px;
+  height: 175px;
+  position: absolute;
+}
+
+
 @media screen and (max-width: 1199px) {
   .wrap-newsletter .element-right::before {
     display: none;
@@ -1555,4 +1586,11 @@ html[lang="ar"] .corpo-artigo {
 
 html[lang="ar"] .corpo-artigo .row {
 	flex-direction: row-reverse;
+}
+
+.wrap-newsletter.ar .tnp-subscription input[type="text"],
+.wrap-newsletter.ar .tnp-subscription input[type="email"],
+.wrap-newsletter.ar {
+  direction: rtl;
+  text-align: right;
 }

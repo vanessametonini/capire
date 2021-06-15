@@ -29,7 +29,7 @@
     }
     elseif ( $lang === 'ar' ) {
         $page = get_page_by_path( 'home-ar' );
-        $text_share = get_field('texto_artigo', $page->ID);
+        $text_share = get_field('texto_artigo_ar', $page->ID);
     }
 ?>
 

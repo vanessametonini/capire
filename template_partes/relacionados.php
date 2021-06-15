@@ -20,12 +20,30 @@ if ( $lang === 'en-US' ) {
 }
 elseif ( $lang === 'ar' ) {
     $page = get_page_by_path( 'home-ar' );
-    $titulo_rel = get_field('titulo_artigos_relacionados', $page->ID);
+    $titulo_rel = get_field('titulo_artigos_relacionados_ar', $page->ID);
 }
 ?>
 
+<?php
+$postID = get_the_ID();
+$categoria = get_the_category( $postID )[0];
 
-<div class="container relacionados">
+$posts_rel = new WP_Query(array(
+    'post_type' => 'post',
+    'post_status' => 'publish',
+    'orderby'=>'id', 
+    'order'=>'DESC',
+    'hide_empty' => true,
+    'posts_per_page' => 3,
+    'cat' => $categoria->term_id,
+    'post__not_in' => array($postID),
+) );
+
+if($posts_rel->posts) {
+
+?>
+
+<div class="container relacionados <?= $lang ?>">
     <div class="row">
         <div class="col-12 col-lg-4 offset-lg-4">
             <h3 class="highlight text-center">
@@ -34,22 +52,8 @@ elseif ( $lang === 'ar' ) {
         </div>
     </div>
 
-    <div class="row">
+    <div class="row cardlist">
         <?php
-            $postID = get_the_ID();
-            $categoria = get_the_category( $postID )[0];
-
-            $posts_rel = new WP_Query(array(
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'orderby'=>'id', 
-                'order'=>'DESC',
-                'hide_empty' => true,
-                'posts_per_page' => 3,
-                'cat' => $categoria->term_id,
-                'post__not_in' => array($postID),
-            ) );
-
             foreach ( $posts_rel->posts as $i => $post) {
                 $link = get_permalink( $post->ID );
                 $linha_fina = get_field('linha_fina', $post->ID );
@@ -73,7 +77,7 @@ elseif ( $lang === 'ar' ) {
     </div>
 </div>
 
-
-
 <?php
-}
+    } //end if
+} //end function
+?>

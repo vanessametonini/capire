@@ -16,6 +16,10 @@
             margin-top: 12px;
         }
     }
+
+    &.ar .row.cardlist {
+        flex-direction: row-reverse;
+    }
 }
 
 .card-relacionados {

@@ -1756,3 +1756,7 @@ button.close span {
 body[lang="ar"] .corpo-artigo {
 	text-align: right;
 }
+
+html[lang="ar"] .corpo-artigo .row {
+	flex-direction: row-reverse;
+}

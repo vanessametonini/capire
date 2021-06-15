@@ -24,13 +24,18 @@
     $titulo_news = get_field('titulo_newsletter', $page->ID);
     $texto_news = get_field('texto_newsletter', $page->ID);
     $botao_news = get_field('botao_newsletter', $page->ID);
-
+  }
+  elseif ( $lang === 'ar' ) {
+    $page = get_page_by_path( 'home-ar' );
+    $titulo_news = get_field('titulo_newsletter_ar', $page->ID);
+    $texto_news = get_field('texto_newsletter_ar', $page->ID);
+    $botao_news = get_field('botao_newsletter_ar', $page->ID);
   }
 
 ?>
 
 <section id="newsletter" class="container">
-  <div class="wrap-newsletter">
+  <div class="wrap-newsletter <?= $lang ?>">
     <div class="row">
       <div class="offset-md-2 col-md-4 col-12">
         <div class="element-left">
@@ -49,6 +54,8 @@
               echo do_shortcode( '[newsletter_form lists="4" form="4"]' );
             } elseif ( $lang === 'pt-BR' ) {
               echo do_shortcode( '[newsletter_form lists="1" form="1"]' );
+            } elseif ( $lang === 'ar' ) {
+              echo do_shortcode( '[newsletter_form lists="5" form="5"]' );
             }
           ?>
         </div>

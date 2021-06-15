@@ -98,4 +98,11 @@
       margin-right: 0px !important;
     }
   }
+
+  &.ar,
+  .tnp-subscription input[type="text"],
+  .tnp-subscription input[type="email"] {
+    direction: rtl;
+    text-align: right;
+  }
 }
