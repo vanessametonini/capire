@@ -17,7 +17,11 @@
   } elseif ( $lang === 'pt-BR' ) {
       $page = get_page_by_path( 'home' );
       $title_regiao = get_field('titulo_regioes');
-  }
+
+  } elseif ( $lang === 'ar' ) {
+    $page = get_page_by_path( 'home-ar' );
+    $title_regiao = get_field('titulo_regioes_ar');
+}
 
 ?>
 
@@ -29,6 +33,7 @@
       </div>
 
       <div class="carousel slider-regioes" data-flickity='{ "freeScroll": true, "contain": true, "groupCells": true }'>
+
         <?php 
         $posts_regs = get_posts(array(
           'post_type' => 'post',

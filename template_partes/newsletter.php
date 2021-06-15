@@ -37,14 +37,14 @@
 <section id="newsletter" class="container">
   <div class="wrap-newsletter <?= $lang ?>">
     <div class="row">
-      <div class="offset-md-2 col-md-4 col-12">
-        <div class="element-left">
+      <div class="col-md-4 col-12 text-col">
+        <div class="presentation">
           <h2 class="purple"><?php echo $titulo_news ?></h2>
           <p><?php echo $texto_news ?></p>
         </div>
       </div>
-      <div class="col-md-4 col-12">
-        <div class="element-right">
+      <div class="col-md-4 col-12 form-col">
+        <div class="subscribe-form">
           <?php
             if ( $lang === 'en-US' ) {
               echo do_shortcode( '[newsletter_form lists="2" form="2"]' );
@@ -62,9 +62,6 @@
       </div>
     </div>
   </div>
-
-
-
 </section>
 
 <?php

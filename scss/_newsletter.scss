@@ -26,26 +26,54 @@
     margin-right: 49px;
   }
 
-  .element-left {
-    margin-top: 77px;
-    
+  &:not(.ar) .text-col {
+    margin-left: 16.666667%;
+  }
+
+  &.ar > .row {
+    flex-direction: row-reverse;
+  }
+
+  &.ar .text-col {
+    margin-right: 16.666667%;
+  }
+
+  &.ar .presentation {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .presentation {
+    position:relative;
+
     &::after {
       content: "";
       display: block;
+      background-repeat: no-repeat;
       background-image: url(../images/element-left.png);
       width: 175px;
       height: 175px;
-      margin-top: -113px;
-      margin-left: -81px;
+      position: absolute;
+      bottom: -60px;
+      left: -70px;
 
       @media screen and (max-width: 1199px) {
         display: none;
-        background-image: url(../images/element-left-sm.png);
       }
     }
   }
 
-  .element-right {
+  &.ar .presentation::after {
+    background-image: url(../images/element-right.png);
+    bottom: initial;
+    left: initial;
+    top: -70px;
+    right: -70px
+  }
+
+  .subscribe-form {
+    position: relative;
+
     &::before {
       content: "";
       display: block;
@@ -53,19 +81,27 @@
       background-image: url(../images/element-right.png);
       width: 175px;
       height: 175px;
-      float: right;
-      margin-bottom: -92px;
-      margin-right: -33px;
+      position: absolute;
+      top: -40px;
+      right: -10px;
 
       @media screen and (max-width: 1199px) {
         display: none;
-        background-image: url(../images/element-right-sm.png);
       }
     }
   }
+
+  &.ar .subscribe-form::before {
+    background-image: url(../images/element-left.png);
+    margin: 0;
+    top: initial;
+    right: initial;
+    bottom: -100px;
+    right: 240px;
+  }
 }
 
-.element-right {
+.subscribe-form {
   input {
     &.tnp-name,&.tnp-email {
       background: none !important;
@@ -99,7 +135,6 @@
     }
   }
 
-  &.ar,
   .tnp-subscription input[type="text"],
   .tnp-subscription input[type="email"] {
     direction: rtl;
