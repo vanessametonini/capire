@@ -728,13 +728,28 @@ footer .menu-footer li a {
 .relacionados .highlight::after {
   margin-top: 12px;
 }
+.relacionados .data {
+  float: right;
+}
+.relacionados .card-relacionados {
+  border-left: 11px solid var(--red);
+  padding-left: 20px;
+}
 .relacionados.ar .row.cardlist {
   flex-direction: row-reverse;
 }
-
-.card-relacionados {
-  border-left: 11px solid var(--red);
-  padding-left: 20px;
+.relacionados.ar .wrap-card {
+  direction: rtl;
+  text-align: right;
+}
+.relacionados.ar .data {
+  float: left;
+}
+.relacionados.ar .card-relacionados {
+  border-left: 0;
+  padding-right: 0;
+  border-right: 11px solid var(--red);
+  padding-right: 20px;
 }
 
 @media screen and (max-width: 1199px) {
@@ -1161,17 +1176,6 @@ blockquote {
 }
 .img-leg .small {
   text-align: left;
-}
-
-:root {
-  --dark: #333;
-  --white: #FFF;
-  --purple: #663399;
-  --red: #CC3333;
-  --lightgrey: #f4f4f4;
-  --font-oswald: "Oswald", sans-serif;
-  --font-lato: "Lato", sans-serif;
-  --linear-gradient: linear-gradient(to left , #663399, #CC3333);
 }
 
 .tags .tag-name {
@@ -2825,21 +2829,19 @@ button.close span {
   height: 50%;
 }
 
-/*# sourceMappingURL=style.css.map */
-.home-ar {
-  text-align: right !important;
-}
-
 .home-ar .name-categoria::after {
   margin-left: auto;
 }
 
 body[lang=ar] .corpo-artigo {
+  direction: rtl;
   text-align: right;
 }
 
 html[lang=ar] .corpo-artigo .row {
   flex-direction: row-reverse;
+  direction: rtl;
+  text-align: right;
 }
 
 .bg-grey {
@@ -3234,6 +3236,14 @@ button.close span {
 .galeria-slide .flickity-prev-next-button .flickity-button-icon {
   width: 50%;
   height: 50%;
+}
+
+.home-ar {
+  direction: rtl;
+  text-align: right !important;
+}
+.home-ar .wrap-newsletter.ar > .row {
+  flex-direction: initial;
 }
 
 /*# sourceMappingURL=style.css.map */

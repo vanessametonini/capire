@@ -65,7 +65,7 @@ if($posts_rel->posts) {
                 <div class="card-relacionados">
                     <p class="name-categoria">
                         <?php echo $categoria->name ?>
-                        <span class="float-right"><?php echo $data ?></span>
+                        <span class="data"><?php echo $data ?></span>
                     </p>
                     <a href="<?php echo $link; ?>"><h5><?php echo get_the_title( $post->ID ); ?></h5></a>
                 </div>

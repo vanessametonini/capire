@@ -421,3 +421,12 @@ button.close {
         height: 50%;
     }
 }
+
+.home-ar {
+    direction: rtl;
+    text-align: right !important;
+
+    .wrap-newsletter.ar > .row {
+        flex-direction: initial;
+    }
+}
