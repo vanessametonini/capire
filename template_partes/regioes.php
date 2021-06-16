@@ -34,22 +34,42 @@
 
       <div class="carousel slider-regioes" data-flickity='{ "freeScroll": true, "contain": true, "groupCells": true }'>
 
-        <?php 
-        $posts_regs = get_posts(array(
-          'post_type' => 'post',
-          'post_status' => 'publish',
-          'numberposts' => 30,
-          'orderby'=>'id', 
-          'order'=>'DESC',
-          'hide_empty' => true,
-          'tax_query' => array(
-              array(
-                  'taxonomy' => 'regioes',
-                  'field' => 'slug',
-                  'terms' => ['africa', 'americas', 'asia-oceania', 'europa', 'mundo-arabe', 'internacional'],
-              )
-          )
-        ) );
+        <?php
+        function getByRegion($region) {
+            return get_posts(array(
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'numberposts' => 5,
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'hide_empty' => true,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'regioes',
+                        'field' => 'slug',
+                        'terms' => [$region],
+                    )
+                )
+            ));
+        }
+
+        $posts_africa = getByRegion('africa');
+        $posts_americas = getByRegion('americas');
+        $posts_asia = getByRegion('asia-oceania');
+        $posts_europa = getByRegion('europa');
+        $posts_mundo = getByRegion('mundo-arabe');
+        $posts_internacional = getByRegion('internacional');
+
+        $posts_regs = [];
+
+        for ($i = 0; $i < 5; $i++) {
+            $posts_regs[] = $posts_africa[$i];
+            $posts_regs[] = $posts_americas[$i];
+            $posts_regs[] = $posts_asia[$i];
+            $posts_regs[] = $posts_europa[$i];
+            $posts_regs[] = $posts_mundo[$i];
+            $posts_regs[] = $posts_internacional[$i];
+        }
 
         foreach ( $posts_regs as $post  ) {
           $regs = get_the_terms( $post->ID, 'regioes' )[0];
@@ -68,24 +88,19 @@
                         <div class="name-categoria small">
                           <span><?php echo $categoria->name ?></span>
                           <span class="float-right"><?php echo $date ?></span>
-                        </div>
-                        
+                        </div>=
                         <h4><?php echo get_the_title( $post->ID ); ?></h4>
                     </div>
                 </a>
             </div>
           </div>
-          
         <?php } ?>
 
-
       </div>
-
 
     </div>
   </div>
 </section>
-
 
 <?php
 }
