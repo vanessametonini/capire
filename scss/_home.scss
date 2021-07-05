@@ -429,4 +429,13 @@ button.close {
     .wrap-newsletter.ar > .row {
         flex-direction: initial;
     }
+
+    .hero .carousel.hero-slide .flickity-page-dots {
+        left: 0;
+    }
+
+    .hero .offset-lg-1 {
+        margin-left: 0;
+        margin-right: 8.333333%;
+    }
 }
