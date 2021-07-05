@@ -851,6 +851,11 @@ footer .menu-footer li a {
   bottom: -100px;
   right: 240px;
 }
+.wrap-newsletter.ar .tnp-subscription input[type=text],
+.wrap-newsletter.ar .tnp-subscription input[type=email] {
+  direction: rtl;
+  text-align: right;
+}
 
 .subscribe-form input.tnp-name, .subscribe-form input.tnp-email {
   background: none !important;
@@ -881,11 +886,6 @@ footer .menu-footer li a {
     width: auto !important;
     margin-right: 0px !important;
   }
-}
-.subscribe-form .tnp-subscription input[type=text],
-.subscribe-form .tnp-subscription input[type=email] {
-  direction: rtl;
-  text-align: right;
 }
 
 .home-regions {
@@ -3244,6 +3244,13 @@ button.close span {
 }
 .home-ar .wrap-newsletter.ar > .row {
   flex-direction: initial;
+}
+.home-ar .hero .carousel.hero-slide .flickity-page-dots {
+  left: 0;
+}
+.home-ar .hero .offset-lg-1 {
+  margin-left: 0;
+  margin-right: 8.333333%;
 }
 
 /*# sourceMappingURL=style.css.map */

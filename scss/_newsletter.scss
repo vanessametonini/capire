@@ -99,6 +99,14 @@
     bottom: -100px;
     right: 240px;
   }
+
+  &.ar {
+    .tnp-subscription input[type="text"],
+    .tnp-subscription input[type="email"] {
+      direction: rtl;
+      text-align: right;
+    }
+  }
 }
 
 .subscribe-form {
@@ -135,9 +143,4 @@
     }
   }
 
-  .tnp-subscription input[type="text"],
-  .tnp-subscription input[type="email"] {
-    direction: rtl;
-    text-align: right;
-  }
 }

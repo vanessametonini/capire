@@ -88,7 +88,7 @@
                         <div class="name-categoria small">
                           <span><?php echo $categoria->name ?></span>
                           <span class="float-right"><?php echo $date ?></span>
-                        </div>=
+                        </div>
                         <h4><?php echo get_the_title( $post->ID ); ?></h4>
                     </div>
                 </a>
